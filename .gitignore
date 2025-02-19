@@ -1,0 +1,19 @@
+# Maven target directory
+/target/
+
+# IDE settings
+.idea/
+*.iml
+
+# OS generated files
+.DS_Store
+
+# Node modules
+/node_modules/
+
+# Build output
+/build/
+
+# Log files
+nom-debug.log*
+yarn-debug.log*

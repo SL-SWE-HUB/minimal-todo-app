@@ -1,8 +1,9 @@
-package com.example.MinTodoApp.Model;
+package com.example.MinTodoApp.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+
 
 @Entity
 public class Todo {

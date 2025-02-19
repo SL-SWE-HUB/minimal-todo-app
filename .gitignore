@@ -17,3 +17,6 @@
 # Log files
 nom-debug.log*
 yarn-debug.log*
+
+# Git only use CRLF for file:
+mvnw.cmd text eol=crlf

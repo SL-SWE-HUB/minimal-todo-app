@@ -1,4 +1,4 @@
-package service;
+package com.example.MinTodoApp.service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,23 +10,23 @@ import com.example.MinTodoApp.model.Todo;
 
 public class TodoService {
 
-    public static List<Todo> getAllTodos(){
+    public List<Todo> getAllTodos(){
         return new ArrayList<>();
     }
 
-    public static Todo createTodo(long id, Todo updatedTodo){
+    public Todo createTodo(long id, Todo updatedTodo){
         return new Todo();
     }
 
-    public static Todo updateTodo(Long id, Todo updatedTodo){
+    public Todo updateTodo(Long id, Todo updatedTodo){
         return new Todo();
     }
 
-    public static void deleteTodo(Long id){
+    public void deleteTodo(Long id){
         
     }
 
-    public static Optional<Todo> getTodoById(Long id){
+    public Optional<Todo> getTodoById(Long id){
         return null;
     }
 

@@ -7,7 +7,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.example.MinTodoApp.model.Todo;
-
+@Service
 public class TodoService {
 
     public List<Todo> getAllTodos(){

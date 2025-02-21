@@ -1,5 +1,8 @@
 import logo from './logo.svg';
 import './App.css';
+import './components/TodoItem';
+import './components/TodoList';
+import './components/TodoForm';
 
 function App() {
   return (

@@ -4,7 +4,7 @@ import './App.css';
 import TodoList from './components/TodoList';
 import TodoForm from './components/TodoForm';
 //Importing API service functions we created (Handle HTTP requests)
-import {getTodos, createTodo, updateTodo, deleteTodo} from './api/TodoService';
+import {getTodos, createTodo, deleteTodo} from './api/TodoService';
 
 
 /**
@@ -80,7 +80,7 @@ function App() {
   //and the list o todos. It passes the callback functions as props
 
   return (
-    <div className="App" style={{padding: '16px', maxWidth: '600px', margin: '0 auto'}}>
+    <div className="App">
       <h1>Minimal To-Do App</h1>
       <TodoForm onAdd={handleAddTodo} />
       <TodoList todos={todos} onToggle={handleToggleTodo} onDelete={handleDeleteTodo} />

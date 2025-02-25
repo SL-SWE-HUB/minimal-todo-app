@@ -22,14 +22,16 @@ public class TodoService {
         return tdr.save(todo);
     }
 
-    public Todo updateTodo(Long id, Todo updatedTodo){
-        return new Todo();
+    public Optional<Todo> updateTodo(Long id, Todo updatedTodo){
+        Todo toUpdate = tdr.getReferenceById(id);
+        toUpdate.setTitle(updatedTodo.getTitle());
+        toUpdate.setDescription(updatedTodo.getDescription());
+        toUpdate.setCompleted(updatedTodo.isCompleted());
+        return Optional.of(updatedTodo);
     }
 
     public void deleteTodo(Long id){
-        if(id == null)
-            return;
-        else 
+        if(id != null)
             tdr.deleteById(id);
     }
 

@@ -1,6 +1,7 @@
 package com.example.MinTodoApp.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -42,8 +43,10 @@ public class TodoController {
     }
 
     @PutMapping("/updateTodo/{id}")
-    public Todo updateTodo(@PathVariable Long id){
-        return new Todo();
+    public Optional<Todo> updateTodo(@PathVariable Long id, @RequestBody Todo todo){
+        if(id == null || todo == null)
+            return null;
+        return tds.updateTodo(id, todo);
     }
 
     @DeleteMapping("/deleteTodo/{id}")

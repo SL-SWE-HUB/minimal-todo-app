@@ -57,7 +57,7 @@ function App() {
       const newTodo = await updateTodo(id, updatedTodo);
       //updating state by replacing the old todo with the updated one
       setTodos((prevTodos) => 
-        prevTodos.map((todo) => (todo.id === id? newTodo : todo))
+        prevTodos.map((todo) => (todo.id === id ? newTodo : todo)) // if todo has same id as arguement, replace with newTodo otherwise add same element already there
     );
     }catch (error) {
       console.error("Error updating todo:", error);

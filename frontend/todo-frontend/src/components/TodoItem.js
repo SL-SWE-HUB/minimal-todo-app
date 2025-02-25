@@ -14,7 +14,7 @@ function TodoItem( {todo, onToggle, onDelete} ){
         marginBottom:'8px'
     };
 
-    const titleStyle = {
+    const completedStyle = {
         textDecoration: todo.completed ? 'line-through' : 'none'
     };
 
@@ -22,8 +22,8 @@ function TodoItem( {todo, onToggle, onDelete} ){
 
     return (
         <div style={itemStyle}>
-            <h3 style={titleStyle}>{todo.title}</h3>
-            <p>{todo.description}</p>
+            <h3 style={completedStyle}>{todo.title}</h3>
+            <p style={completedStyle}>{todo.description}</p>
             <button onClick={() => onToggle(todo.id)}>{todo.completed ? 'Mark as Incomplete' : 'Mark as Complete'}</button>
             <button onClick={() => onDelete(todo.id)} style={{marginLeft: '8px'}}>Delete</button>
         </div>

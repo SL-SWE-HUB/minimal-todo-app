@@ -19,6 +19,7 @@ function TodoList( {todos, onToggle, onDelete} ){
                 <TodoItem
                     key={todo.id}
                     todo={todo}
+                    completed={todo.completed}
                     onToggle={onToggle}
                     onDelete={onDelete}
                 />

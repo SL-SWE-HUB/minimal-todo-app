@@ -41,7 +41,7 @@ public class TodoController {
         return tds.createTodo(todo.getId(), todo);
     }
 
-    @PutMapping("update/{id}")
+    @PutMapping("/updateTodo/{id}")
     public Todo updateTodo(@PathVariable Long id){
         return new Todo();
     }

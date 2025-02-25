@@ -39,11 +39,15 @@ export async function updateTodo(id, updatedTodo){
 }
 
 export async function deleteTodo(id){
-    const response = await fetch(`${API_BASE_URL}/${id}`, {
+    const response = await fetch(`${API_BASE_URL}/deleteTodo/${id}`, {
         method: "DELETE",
     });
     if(!response.ok){
         throw new Error(`Failed to delete todo ${response.statusText}`);
     }
-    return response.json();
+    if(response.status === 204){
+        return null;
+    }
+    const responseDetails = await response.text();
+    return responseDetails ? JSON.parse(responseDetails) : null;
 }

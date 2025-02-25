@@ -4,7 +4,7 @@ import './App.css';
 import TodoList from './components/TodoList';
 import TodoForm from './components/TodoForm';
 //Importing API service functions we created (Handle HTTP requests)
-import {getTodos, createTodo, deleteTodo} from './api/TodoService';
+import {getTodos, createTodo, updateTodo, deleteTodo} from './api/TodoService';
 
 
 /**
@@ -54,7 +54,7 @@ function App() {
     const updatedTodo = {...todoToUpdate, completed: !todoToUpdate.completed};
     try{
       //calling api with updated todo
-      const newTodo = await updatedTodo(id, updatedTodo);
+      const newTodo = await updateTodo(id, updatedTodo);
       //updating state by replacing the old todo with the updated one
       setTodos((prevTodos) => 
         prevTodos.map((todo) => (todo.id === id? newTodo : todo))

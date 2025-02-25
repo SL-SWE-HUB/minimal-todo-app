@@ -27,11 +27,14 @@ public class TodoService {
     }
 
     public void deleteTodo(Long id){
-        
+        if(id == null)
+            return;
+        else 
+            tdr.deleteById(id);
     }
 
     public Optional<Todo> getTodoById(Long id){
-        return null;
+        return tdr.findById(id);
     }
 
 

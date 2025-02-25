@@ -46,7 +46,7 @@ public class TodoController {
         return new Todo();
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/deleteTodo/{id}")
     public void deleteTodo(@PathVariable Long id){
         tds.deleteTodo(id);
     }

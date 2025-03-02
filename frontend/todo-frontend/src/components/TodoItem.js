@@ -9,7 +9,7 @@ import React from 'react';
 
 function TodoItem( {todo, onToggle, onDelete} ){
     const itemStyle = {
-        border: '1px solid #ccc',
+        border: 'solid 1px #ccc',
         padding: '8px',
         marginBottom:'8px'
     };

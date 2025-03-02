@@ -16,7 +16,10 @@ import {getTodos, createTodo, updateTodo, deleteTodo} from './api/TodoService';
 
 function App() {
 
+  // IMportant: NOtice how we are creating a class level variable todos, with a 
+  // setTodos method that is initialized to [] 
   const[todos, setTodos] = useState([]);
+  // -> const[doneTodo, setDoneTodo] = useState([]);
 
   // useEffect hook: runs noce the coponent is mounted to oad existing todos
   useEffect(() => { 
@@ -56,6 +59,7 @@ function App() {
       //calling api with updated todo
       const newTodo = await updateTodo(id, updatedTodo);
       //updating state by replacing the old todo with the updated one
+      // setTodos(()) <- empty object used to map within todo list? (ASk GPT)
       setTodos((prevTodos) => 
         prevTodos.map((todo) => (todo.id === id ? newTodo : todo)) // if todo has same id as arguement, replace with newTodo otherwise add same element already there
     );
@@ -71,6 +75,7 @@ function App() {
       await deleteTodo(id);
       //Update state by filtering out the deleted todo
       setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== id));
+      // -> setDoneTodos((prevDoneTodos) => prevDoneTodos.filter((doneTodo) => doneTodo.id === id));
     }catch (error) {
       console.error("Error deleting todo:", error);
     }
@@ -81,9 +86,19 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Minimal To-Do App</h1>
-      <TodoForm onAdd={handleAddTodo} />
-      <TodoList todos={todos} onToggle={handleToggleTodo} onDelete={handleDeleteTodo} />
+
+      <h1 className="title-style">Minimal To-Do App</h1>
+
+      <section className="form-section">
+        <h3>Enter Todo Task</h3>
+        <TodoForm onAdd={handleAddTodo} />
+      </section>
+
+      <section className="todo-list-section">
+        <h3>To-Do List</h3>
+        <TodoList todos={todos} onToggle={handleToggleTodo} onDelete={handleDeleteTodo} />
+      </section>
+
     </div>
   );
 

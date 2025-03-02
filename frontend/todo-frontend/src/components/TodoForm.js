@@ -38,29 +38,31 @@ function TodoForm({ onAdd }) {
     };
 
     return (
-        <form onSubmit={handleSubmit} style={{ marginBottom: '16px'}}>
-            <div>
-                <label htmlFor="todo-title">Title:</label>
-                <input
-                    type="text"
-                    id="todo-title"
-                    value={title}
-                    onChange={e => setTitle(e.target.value)}
-                    placeholder='Enter todo title'
-                    required
-                />
-            </div>
-            <div>
-                <label htmlFor="todo-description">Description:</label>
-                <textarea
-                id="todo-description"
-                value={description}
-                onChange={e => setDescription(e.target.value)}
-                placeholder="Enter todo description"
-                />
-            </div>
-            <button type="submit">Add Todo</button>
-        </form>
+        <div className="center-form">
+            <form onSubmit={handleSubmit} className="form-style">
+                <div>
+                    <label htmlFor="todo-title">Title:</label>
+                    <input
+                        type="text"
+                        id="todo-title"
+                        value={title}
+                        onChange={e => setTitle(e.target.value)}
+                        placeholder='Enter todo title'
+                        required
+                    />
+                </div>
+                <div>
+                    <label htmlFor="todo-description">Description:</label>
+                    <textarea
+                    id="todo-description"
+                    value={description}
+                    onChange={e => setDescription(e.target.value)}
+                    placeholder="Enter todo description"
+                    />
+                </div>
+                <button type="submit">Add Todo</button>
+            </form>
+        </div>
     );
 
 }

@@ -5,15 +5,40 @@
   margin: '0 auto';
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.title-style{
+  font-size: 5vw;
+  padding-bottom: 5px;
+  border-bottom: solid black 5px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.center-form{
+  text-align: center;
+}
+
+.form-style{
+  display: inline-block;
+}
+
+.form-style div{
+    display: table-row;
+    text-align: left;
+}
+
+.form-style label{
+  text-align: right;
+  vertical-align: middle;
+}
+
+.form-style label, input{
+  display: table-cell;
+}
+
+.form-section{
+  padding-bottom: 15px;
+}
+
+.todo-list-section{
+  background-color: rgb(228, 255, 228);
 }
 
 .App-header {
@@ -31,11 +56,4 @@
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
+

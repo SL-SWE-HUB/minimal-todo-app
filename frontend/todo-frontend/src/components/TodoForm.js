@@ -20,7 +20,6 @@ function TodoForm({ onAdd }) {
     const handleSubmit = event => {
         event.preventDefault();
         if(!title.trim()){
-            //If title is empty after trimming whitespace, dont submit (empty string)
             return;
         }
 
@@ -30,9 +29,8 @@ function TodoForm({ onAdd }) {
             completed: false
         };
 
-        onAdd(newTodo); // Gathered data -> New Obj is passed to parent component via onAdd
+        onAdd(newTodo); 
 
-        // Form and title Reset 
         setTitle('');
         setDescription('');
     };

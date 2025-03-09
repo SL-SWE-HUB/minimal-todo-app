@@ -3,7 +3,9 @@ import './App.css';
 import TodoList from './components/TodoList';
 import TodoForm from './components/TodoForm';
 import {getTodos, createTodo, updateTodo, deleteTodo} from './api/TodoService';
-
+import Login from './components/Login';
+import Signup from './components/Signup'
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 
 /**
  * App component
@@ -68,18 +70,39 @@ function App() {
   return (
     <div className="App">
 
-      <h1 className="title-style">Minimal To-Do App</h1>
+      <Router>
+      <div className="App" style={{ padding: '16px', maxWidth: '600px', margin: '0 auto' }}>
+          <nav>
+            <Link to="/">Home</Link> |{" "}
+            <Link to="/login">Login</Link> |{" "}
+            <Link to="/signup">Sign Up</Link>
+          </nav>
 
-      <section className="form-section">
-        <h3>Enter Todo Task</h3>
-        <TodoForm onAdd={handleAddTodo} />
-      </section>
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <>
+                  <h1>To‑Do App</h1>
+                  
+                  <section className="form-section">
+                      <h3>Enter Todo Task</h3>
+                      <TodoForm onAdd={handleAddTodo} />
+                  </section>
 
-      <section className="todo-list-section">
-        <h3>To-Do List</h3>
-        <TodoList todos={todos} onToggle={handleToggleTodo} onDelete={handleDeleteTodo} />
-      </section>
+                  <section className="todo-list-section">
+                    <h3>To-Do List</h3>
+                    <TodoList todos={todos} onToggle={handleToggleTodo} onDelete={handleDeleteTodo} />
+                  </section>
+                </>
+              }
+            />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+          </Routes>
 
+        </div>
+      </Router>
     </div>
   );
 

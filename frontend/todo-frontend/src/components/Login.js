@@ -10,9 +10,9 @@ function Login(){
         e.preventDefault();
         try{
             const result = await loginUser({username, password});
-            setMessage(result);
+            setMessage(`User ${result.username} logged in successfully!`);
         }catch(error){
-            setMessage(error.message);
+            setMessage(`Log in attempt Failed. Try Again.`);
         }
     };
 
@@ -25,8 +25,10 @@ function Login(){
             </div>
             <div>
                 <label>Password:</label>
-                <input type="text" value={password} onChange={(e) => setPassword(e.target.value)}/>
+                <input type="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
             </div>
+            <button type="submit">Login</button>
+            {message && <p>{message}</p>}
         </form>
     );
 }

@@ -9,8 +9,8 @@ function Signup(){
     const handleSubmit = async (e) => {
         e.preventDefault();
         try{
-        const newUser = await registerUser({username, password});
-        setMessage(`User ${newUser.username} registered successfully`);
+            const newUser = await registerUser({username, password});
+            setMessage(`User ${newUser.username} registered successfully`);
         }catch(error){
             setMessage(error.message);
         }

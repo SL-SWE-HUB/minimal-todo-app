@@ -17,7 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.MinTodoApp.model.Todo;
-import com.example.MinTodoApp.service.TodoService;
+import com.example.MinTodoApp.service.TodoServiceImpl;
+
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
@@ -25,7 +26,7 @@ import com.example.MinTodoApp.service.TodoService;
 public class TodoController {
 
     @Autowired
-    private TodoService tds;
+    private TodoServiceImpl tds;
     
     @GetMapping("/")
     public List<Todo> getAllTodos(){

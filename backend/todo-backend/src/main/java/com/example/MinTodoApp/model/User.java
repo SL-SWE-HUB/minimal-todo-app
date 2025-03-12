@@ -4,8 +4,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "users") // user is a reserved word, causes error, renaming table frrom "user" to "users"
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

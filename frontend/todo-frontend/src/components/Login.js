@@ -10,9 +10,12 @@ function Login(){
         e.preventDefault();
         try{
             const result = await loginUser({username, password});
-            setMessage(`User ${result.username} logged in successfully!`);
+            if(result != null)
+                setMessage(`User ${result.username} logged in successfully!`);
+            else
+                setMessage('Invalid Credentials. Try Again.')
         }catch(error){
-            setMessage(`Log in attempt Failed. Try Again.`);
+            setMessage(`Error. Log in Failed. Try Again.`);
         }
     };
 

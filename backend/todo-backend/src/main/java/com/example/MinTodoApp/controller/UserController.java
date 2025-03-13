@@ -28,7 +28,7 @@ public class UserController {
 
     //Example login endpoint
     @PostMapping("/login")
-    public ResponseEntity login(@RequestBody User user){
+    public ResponseEntity<User> login(@RequestBody User user){
         User existingUser = userService.findByUserName(user.getUsername());
         // System.out.println("Found User: " + (existingUser != null ? "true" : "false"));
         if(existingUser != null && existingUser.getPassword().equals(user.getPassword()))

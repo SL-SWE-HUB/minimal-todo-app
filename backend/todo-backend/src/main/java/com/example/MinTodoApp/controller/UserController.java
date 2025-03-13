@@ -1,5 +1,8 @@
 package com.example.MinTodoApp.controller;
 
+import org.apache.catalina.connector.Response;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,12 +28,12 @@ public class UserController {
 
     //Example login endpoint
     @PostMapping("/login")
-    public User login(@RequestBody User user){
+    public ResponseEntity login(@RequestBody User user){
         User existingUser = userService.findByUserName(user.getUsername());
         // System.out.println("Found User: " + (existingUser != null ? "true" : "false"));
         if(existingUser != null && existingUser.getPassword().equals(user.getPassword()))
-            return existingUser;
+            return ResponseEntity.ok(existingUser);
         else
-            return null;
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
 }

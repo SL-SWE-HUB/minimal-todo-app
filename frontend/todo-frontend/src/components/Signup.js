@@ -1,36 +1,48 @@
 import React, { useState } from 'react';
 import { registerUser } from '../api/AuthService';
+import { useNavigate } from 'react-router-dom'; 
 
-function Signup(){
+function Signup( {setUserStatus} ){
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
+    const [error, setError] = useState('');
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try{
             const newUser = await registerUser({username, password});
+            if(newUser){
             setMessage(`User ${newUser.username} registered successfully`);
+            setUserStatus('authenticated');
+            navigate('/home');
+            }
+            else
+                setError('Registration failed');
         }catch(error){
             setMessage(error.message);
         }
     };
 
     return (
-        <form onSubmit={handleSubmit}>
+        <div>
             <h2>Sign Up</h2>
-            <div>
-                <label>Username:</label>
-                <input type="text" value={username} onChange={(e) => setUsername(e.target.value)}/>
-            </div>
-            <div>
-                <label>Password:</label>
-                <input type="text" value={password} onChange={(e) => setPassword(e.target.value)}/>
-            </div>
-            <button type="submit">Register</button>
-            {message && <p>{message}</p>}
-        </form>
-    )
+            <form onSubmit={handleSubmit}>
+                <div>
+                    <label>Username:</label>
+                    <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} required/>
+                </div>
+                <div>
+                    <label>Password:</label>
+                    <input type="text" value={password} onChange={(e) => setPassword(e.target.value)} required/>
+                </div>
+                <button type="submit">Register</button>
+                {message && <p>{message}</p>}
+            </form>
+            {error && <p>{error}</p>}
+        </div>
+    );
 }
 
 export default Signup;

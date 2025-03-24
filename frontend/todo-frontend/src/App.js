@@ -5,7 +5,7 @@ import TodoForm from './components/TodoForm';
 import {getTodos, createTodo, updateTodo, deleteTodo} from './api/TodoService';
 import Login from './components/Login';
 import Signup from './components/Signup'
-import { BrowserRouter as Router, Routes, Route, Navigate, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate, Link } from 'react-router-dom';
 
 /**
  * App component
@@ -19,7 +19,7 @@ function App() {
   const[todos, setTodos] = useState([]);
   // [userStatus,setUserStatus] -> For user Auth Status: 'authenticated', 'guest', 'null' 
   const [userStatus, setUserStatus] = useState(null);
-
+  const navigate = useNavigate(); // Hook for navigation
 
   // Conditional useEffect() -> Only load todos from backend if user authenticated
   useEffect(() => { 
@@ -81,39 +81,52 @@ function App() {
         setTodos(prev => prev.filter(todo => todo.id  !== id));
   };
 
-  return (
-    <div className="App">
+  const handleLogout = () => {
+    setUserStatus(null); // Auth change
+    // setTodos([]); // Resetting logged in user's todo's
+    navigate('/login');
+  };
 
-      <Router>
+  return (
       <div className="App" style={{ padding: '16px', maxWidth: '600px', margin: '0 auto' }}>
           <nav>
-            <Link to="/login">Login</Link> |{" "}
-            <Link to="/signup">Sign Up</Link>
+            {userStatus === 'authenticated' ? (
+              <>
+                <button onClick={handleLogout}>Logout</button>
+              </>
+            ) : (
+              <>
+                <Link to="/login">Login</Link> |{" "}
+                <Link to="/signup">Sign Up</Link>
+              </>
+            )}
           </nav>
-
           <Routes>
             <Route
               path="/login"
-              element={ <Login setUserStatus={setUserStatus}/>}/>
-            <Route path="/signup" element={<Signup setUserStatus={setUserStatus} />} />
-            <Route path="/home" 
-            element={userStatus ? (
-            <>
-              <h1>Home - {userStatus === 'authenticated' ? 'User' : 'Guest'}</h1>
-              <TodoForm onAdd={handleAddTodo} />
-              <TodoList todos={todos} onToggle={handleToggleTodo} onDelete={handleDeleteTodo} />
-            </>
-            ) : (
-              // Not found, redirect to /login for now
-              <Navigate to="/login"/>
-            )}/>
-              {/*default route redirtect -> login*/}
+              element={<Login setUserStatus={setUserStatus}/>}/>
+            <Route 
+              path="/signup" 
+              element={<Signup setUserStatus={setUserStatus} />} />
+            <Route 
+              path="/home" 
+              element={
+                userStatus ? (
+                  <>
+                    <h1>Home - {userStatus === 'authenticated' ? 'User' : 'Guest'}</h1>
+                    <TodoForm onAdd={handleAddTodo} />
+                    <TodoList todos={todos} onToggle={handleToggleTodo} onDelete={handleDeleteTodo} />
+                  </>
+                ) : (
+                  // Not found, redirect to /login for now
+                  <Navigate to="/login"/>
+                )
+              }
+            />
+            {/*default route redirtect -> login*/}
             <Route path="*" element ={<Navigate to="/login" />} />
           </Routes>
-
-        </div>
-      </Router>
-    </div>
+      </div>
   );
 
 }

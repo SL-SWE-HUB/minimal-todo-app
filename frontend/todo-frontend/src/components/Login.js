@@ -37,18 +37,20 @@ function Login( {setUserStatus} ){
         <div>
             <h2>Login</h2>
             <form onSubmit={handleSubmit}>
-                <div>
-                    <label>Username:</label>
-                    <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} required/>
+                <div className='login-form-group'>
+                  
+                        <label>Username</label>
+                        <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} required/>
+           
+                        <label>Password</label>
+                        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required/>
+                    <br />
+                    <button type="submit">Login</button>
                 </div>
-                <div>
-                    <label>Password:</label>
-                    <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required/>
-                </div>
-                <button type="submit">Login</button>
                 {message && <p>{message}</p>}
             </form>
             {error && <p>{error}</p>}
+            <br />
             <hr />
             <button onClick={handleGuest}>Continue as Guest</button>
         </div>

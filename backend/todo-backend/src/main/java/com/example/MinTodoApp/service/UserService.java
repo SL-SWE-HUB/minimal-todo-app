@@ -4,5 +4,5 @@ import com.example.MinTodoApp.model.User;
 
 public interface UserService {
     User registerUser(User user);
-    User findByUserName(String username);
+    User findByUsername(String username);
 }

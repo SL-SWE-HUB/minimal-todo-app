@@ -5,22 +5,45 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
+
 
 @Configuration
 public class SecurityConfig {
-    
+
+    private final CorsConfigurationSource corsConfigurationSource;
+
+    public SecurityConfig(CorsConfigurationSource corsConfigurationSource) {
+        this.corsConfigurationSource = corsConfigurationSource;
+    }
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf(csrf -> csrf.disable())// Disable CSRF using the new lanbda
-        .authorizeHttpRequests(authorize -> authorize // Configuring request authorization with requestMatchers()
-            .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll() // Allow all OPTIONS requests
-            .requestMatchers(HttpMethod.GET, "/todo/**").permitAll() // Allow public GET requests
-            .requestMatchers(HttpMethod.DELETE, "/todo/**").permitAll()
-            .requestMatchers(HttpMethod.PUT, "/todo/**").permitAll()
-            .requestMatchers(HttpMethod.POST, "/todo/**", "/todo/register", "/todo/login").permitAll() // Allow public access to POST auth endpoints 
-            .anyRequest().authenticated()
-        )
-        .httpBasic(httpBasic -> {}); // Empty httpBasic lambda to enable http basic authentication 
-        return http.build();
+        http
+            .cors(cors -> cors.configurationSource(corsConfigurationSource))
+            .csrf(csrf -> csrf.disable())
+            .authorizeHttpRequests(auth -> auth
+                .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                .requestMatchers(HttpMethod.GET, "/**").permitAll()
+                .requestMatchers(HttpMethod.PUT, "/**").permitAll()
+                .requestMatchers(HttpMethod.DELETE, "/**").permitAll()
+                .requestMatchers(HttpMethod.POST, "/**").permitAll()
+                .requestMatchers("/todo/**", "/user", "/user/register", "/user/login", "/create", "/userTodos/**", "/user/**", "/todo/create", "/todo/user/**","/todo/register", "/todo/login", "/h2-console/**").permitAll()
+                .anyRequest().authenticated()
+            )
+            // Since we're using a custom RESTful login, disable default form login.
+            .formLogin(form -> form.disable())
+            .logout(logout -> logout
+                .logoutUrl("/todo/logout")
+                .logoutSuccessUrl("/todo/login")
+                .permitAll()
+            )
+            .headers(headers -> headers.frameOptions(frame -> frame.sameOrigin()))
+            // Ensure that the SecurityContext is stored in the session.
+            .securityContext(securityContext -> securityContext
+                .securityContextRepository(new HttpSessionSecurityContextRepository())
+            );
+            return http.build();
     }
 }

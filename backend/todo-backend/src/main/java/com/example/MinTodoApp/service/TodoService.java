@@ -9,12 +9,16 @@ public interface TodoService {
 
     List<Todo> getAllTodos();
 
-    Todo createTodo(long id, Todo todo);
+    Todo newTodo(long id, Todo todo);
 
     Optional<Todo> updateTodo(Long id, Todo updatedTodo);
 
     void deleteTodo(Long id);
 
     Optional<Todo> getTodoById(Long id);
+
+    List<Todo> getTodosByUserId(Long userId);
+
+    Todo createTodo(Todo todo);
 
 }

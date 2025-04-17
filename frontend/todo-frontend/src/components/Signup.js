@@ -14,9 +14,8 @@ function Signup( {setUserStatus} ){
         try{
             const newUser = await registerUser({username, password});
             if(newUser){
-            setMessage(`User ${newUser.username} registered successfully`);
             setUserStatus('authenticated');
-            navigate('/home');
+            navigate('/login');
             }
             else
                 setError('Registration failed');

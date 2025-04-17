@@ -11,12 +11,6 @@ function TodoForm({ onAdd }) {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
 
-    /**
-     * Handling form submissions (non-default)
-     * Customized function, prevemts the default form submission behavior 
-     * Validaties input, creates a new to-do obj, calls the onAdd(), and resets form
-     */
-
     const handleSubmit = event => {
         event.preventDefault();
         if(!title.trim()){

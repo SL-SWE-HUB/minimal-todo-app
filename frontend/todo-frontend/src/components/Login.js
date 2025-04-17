@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {loginUser} from '../api/AuthService';
 import { useNavigate } from 'react-router-dom';
 
-function Login( {setUserStatus} ){
+function Login( {setUserStatus, setUser} ){
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
@@ -17,6 +17,8 @@ function Login( {setUserStatus} ){
                 setMessage(`User ${result.username} logged in successfully!`);
                 setUserStatus('authenticated');
                 navigate('/home');
+                console.log(result);
+                setUser(result);
             }
             else{
                 setMessage('Invalid Credentials. Try Again.');

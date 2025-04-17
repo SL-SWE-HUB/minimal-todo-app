@@ -2,51 +2,51 @@ import React, {useState, useEffect} from 'react';
 import './App.css';
 import TodoList from './components/TodoList';
 import TodoForm from './components/TodoForm';
-import {getTodos, createTodo, updateTodo, deleteTodo} from './api/TodoService';
+import {createTodo, updateTodo, deleteTodo, loadUserTodos} from './api/TodoService';
 import Login from './components/Login';
 import Signup from './components/Signup'
 import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate, Link } from 'react-router-dom';
 
-/**
- * App component
- * - Manages list of to-dos
- * - Loads todos when component mounts
- * - Provides callback functions for adding, updating, and deleting todos
- */
-
 function App() {
-  // [todos, setTodos] -> State for todos 
-  const[todos, setTodos] = useState([]);
-  // [userStatus,setUserStatus] -> For user Auth Status: 'authenticated', 'guest', 'null' 
-  const [userStatus, setUserStatus] = useState(null);
-  const navigate = useNavigate(); // Hook for navigation
 
-  // Conditional useEffect() -> Only load todos from backend if user authenticated
-  useEffect(() => { 
-    if(userStatus === 'authenticated') // User authenticated -> loadTodos if any
+  const[todos, setTodos] = useState([]);
+  const [userStatus, setUserStatus] = useState(null);
+  const navigate = useNavigate(); 
+  const [usr, setUser] = useState(null);
+
+  useEffect(() => {
+    if (userStatus === 'authenticated' && usr && usr.id) {
       loadTodos();
-    else if(userStatus === 'guest') // Guests initialize with empty array
-      setTodos([]); 
-  }, [userStatus]);
+    } else if (userStatus === 'guest') {
+      setTodos([]);
+    }
+    console.log("After useEffect() process for user state: ", usr);
+  }, [userStatus, usr]);
 
 
   const loadTodos = async() => {
     try{
-    const data = await getTodos();
-    setTodos(data);
-    }catch (error) {
-      console.error("Error loading todos:", error);
+      if(!usr || !usr.id){
+        console.warn("No user or user id available, setting todos to empty");
+        setTodos([]);
+        return;
+      }
+      const response = await loadUserTodos(usr.id);
+      const data = await response.json(); 
+      setTodos(data); 
+    } catch (error) {
+      console.error("Error in loadTodos:", error);
     }
   };
 
-  const handleAddTodo = async (todo) => {
+  const handleAddTodo = async (todo) => { 
     if(userStatus === 'authenticated')
     try {
-      const newTodo = await createTodo(todo);
-      console.log("New todo from API:", newTodo);
+      const newTodo = await createTodo(todo); 
+      
       setTodos((prevTodos) => [...prevTodos, newTodo]);
     } catch (error) {
-      console.error("Error creating todos:", error);
+      console.error("Error creating todos: ", error);
     }else if(userStatus === 'guest')
         setTodos(prev => [...prev, { ...todo, id: Date.now(), completed: false}])
   };
@@ -82,8 +82,7 @@ function App() {
   };
 
   const handleLogout = () => {
-    setUserStatus(null); // Auth change
-    // setTodos([]); // Resetting logged in user's todo's
+    setUserStatus(null); 
     navigate('/login');
   };
 
@@ -104,10 +103,10 @@ function App() {
           <Routes>
             <Route
               path="/login"
-              element={<Login setUserStatus={setUserStatus}/>}/>
+              element={<Login setUserStatus={setUserStatus} setUser={setUser}/>}/>
             <Route 
               path="/signup" 
-              element={<Signup setUserStatus={setUserStatus} />} />
+              element={<Signup setUserStatus={setUserStatus}/>}/>
             <Route 
               path="/home" 
               element={

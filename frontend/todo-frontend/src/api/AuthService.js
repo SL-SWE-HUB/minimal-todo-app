@@ -1,4 +1,4 @@
-const AUTH_BASE_URL = 'http://localhost:8080/todo';
+const AUTH_BASE_URL = 'http://localhost:8080/user';
 
 export async function registerUser(user){
     const response = await fetch(`${AUTH_BASE_URL}/register`, {
@@ -6,6 +6,7 @@ export async function registerUser(user){
         headers: {
             'Content-Type': 'application/json'
         },
+        credentials: 'include',
         body: JSON.stringify(user)
     });
     if(!response.ok){
@@ -14,12 +15,13 @@ export async function registerUser(user){
     return response.json();
 }
 
-export async function loginUser(user){
+export async function loginUser(user){ 
     const response = await fetch(`${AUTH_BASE_URL}/login`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
+        credentials: 'include',
         body: JSON.stringify(user)
     });
     if(!response.ok){

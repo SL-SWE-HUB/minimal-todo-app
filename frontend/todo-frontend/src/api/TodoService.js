@@ -1,7 +1,10 @@
 const API_BASE_URL = 'http://localhost:8080/todo';
 
 export async function getTodos(){
-    const response = await fetch(`${API_BASE_URL}/`);
+    const response = await fetch(`${API_BASE_URL}/`, {
+        method: 'GET',
+        credentials: 'include'
+    });
     console.log(response);
     if(!response.ok){
         throw new Error(`Failed to fetch todos: ${response.statusText}`);
@@ -9,19 +12,19 @@ export async function getTodos(){
     return response.json();
 }
 
-export async function createTodo(todo){
-    const response = await fetch(`${API_BASE_URL}/newtodo`, {
-        method: "POST",
+export async function createTodo(todoData){
+    const response = await fetch(`${API_BASE_URL}/create`, {
+        method: 'POST',
         headers: {
-            "Content-Type": "application/json",
+          'Content-Type': 'application/json'
         },
-        body: JSON.stringify(todo)
-    });
-
-    if(!response.ok){
-        throw new Error(`Failed to create todo ${response.statusText}`);
-    }
-    return response.json();
+        credentials: 'include', 
+        body: JSON.stringify(todoData)    
+      });
+      if (!response.ok) {
+        throw new Error(`Failed to create todo: ${response.statusText}`);
+      }
+      return response.json();
 }
 
 export async function updateTodo(id, updatedTodo){
@@ -30,6 +33,7 @@ export async function updateTodo(id, updatedTodo){
         headers: {
             "Content-Type": "application/json"
         },
+        credentials: 'include',
         body: JSON.stringify(updatedTodo)
     });
     if(!response.ok){
@@ -41,6 +45,7 @@ export async function updateTodo(id, updatedTodo){
 export async function deleteTodo(id){
     const response = await fetch(`${API_BASE_URL}/deleteTodo/${id}`, {
         method: "DELETE",
+        credentials: 'include',
     });
     if(!response.ok){
         throw new Error(`Failed to delete todo ${response.statusText}`);
@@ -50,4 +55,18 @@ export async function deleteTodo(id){
     }
     const responseDetails = await response.text();
     return responseDetails ? JSON.parse(responseDetails) : null;
+}
+
+
+export async function loadUserTodos(userId){
+    // forbidden
+    const response = await fetch(`${API_BASE_URL}/user/${userId}`, {
+        method: 'GET',
+        credentials: 'include',
+      });
+      console.log(`Frontend TodoService loadUserTodos response.status: ${response.status}} | response.blob: ${response.blob}`);
+      if (!response.ok) {
+        throw new Error(`Failed to load user todos: ${response.statusText}`);
+      }
+      return response;
 }

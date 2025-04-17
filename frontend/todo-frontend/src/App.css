@@ -56,10 +56,8 @@
   color: #61dafb;
 }
 
-
-
 .login-form-group {
   display: flex;
-  align-items: center; /* Aligns label and input based on their text baselines */
+  align-items: center; 
   flex-direction: column;
 }

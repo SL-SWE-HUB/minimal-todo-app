@@ -52,14 +52,14 @@ function App() {
   };
 
   const handleToggleTodo = async (id) => {
+
     const todoToUpdate = todos.find((todo) => todo.id === id);
     if(!todoToUpdate)
         return;
     const updatedTodo = {...todoToUpdate, completed: !todoToUpdate.completed};
+    const newTodo = await updateTodo(id, updatedTodo);
     if(userStatus === 'authenticated'){
       try{
-        const newTodo = await updateTodo(id, updatedTodo);
-
         setTodos((prevTodos) => 
           prevTodos.map((todo) => (todo.id === id ? newTodo : todo)));
       }catch (error) {

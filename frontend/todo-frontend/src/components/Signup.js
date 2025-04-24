@@ -14,7 +14,6 @@ function Signup( {setUserStatus} ){
         try{
             const newUser = await registerUser({username, password});
             if(newUser){
-            setUserStatus('authenticated');
             navigate('/login');
             }
             else

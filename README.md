@@ -1,6 +1,6 @@
-Application: 📝 MinTodoApp
+## 📝 MinTodoApp
 
-Description: A full-stack To-Do List web application built with **Spring Boot** (Java) for the backend and **React** for the frontend. The app supports user registration, login, and authenticated CRUD operations on personal todo items.
+ A full-stack To-Do List web application built with **Spring Boot** (Java) for the backend and **React** for the frontend. The app supports user registration, login, and authenticated CRUD operations on personal todo items.
 
 ---
 

@@ -19,7 +19,7 @@
 
 ---
 
-## ✅ Features
+## Features
 
 - 🔐 User registration & login with session-based authentication
 - ➕ Add, edit, delete personal todos
@@ -29,9 +29,9 @@
 
 ---
 
-## 🧰 Tech Stack
+## Tech Stack
 
-### Backend
+#### Backend
 - Java 17+
 - Spring Boot
 - Spring Security
@@ -39,7 +39,7 @@
 - H2 (in-memory DB for development)
 - Maven
 
-### Frontend
+#### Frontend
 - JavaScript (ES6+)
 - React
 - Axios (HTTP requests)
@@ -49,7 +49,7 @@
 
 ---
 
-## 🏛 Architecture
+## Architecture
 
 ```text
 Frontend (React) <--> Backend (Spring Boot API) <--> Database (H2)
@@ -60,9 +60,9 @@ Frontend (React) <--> Backend (Spring Boot API) <--> Database (H2)
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
-### Backend Setup
+## Backend Setup
 
 1. Clone the repo:
    ```bash
@@ -77,7 +77,7 @@ Frontend (React) <--> Backend (Spring Boot API) <--> Database (H2)
 
 3. App runs at `http://localhost:8080`
 
-### Frontend Setup
+## Frontend Setup
 
 1. Go to frontend folder:
    ```bash
@@ -94,11 +94,11 @@ Frontend (React) <--> Backend (Spring Boot API) <--> Database (H2)
    npm run dev
    ```
 
-4. Visit `http://localhost:5173`
+4. Visit `http://localhost:3000`
 
 ---
 
-## 📡 API Overview
+## API Overview
 
 | Method | Endpoint                  | Description                   |
 |--------|---------------------------|-------------------------------|
@@ -110,7 +110,7 @@ Frontend (React) <--> Backend (Spring Boot API) <--> Database (H2)
 
 ---
 
-## 🔐 Authentication Details
+## Authentication Details
 
 - Uses Spring Security session-based authentication (`JSESSIONID`)
 - After login, cookies should include `JSESSIONID` automatically
@@ -129,7 +129,7 @@ Frontend (React) <--> Backend (Spring Boot API) <--> Database (H2)
 
 ---
 
-## 🛠 Common Issues & Debugging Tips
+## Common Issues & Debugging Tips
 
 - **403 Forbidden** or **401 Unauthorized**:
   - Make sure cookies are sent with Axios requests:
@@ -157,14 +157,10 @@ Frontend (React) <--> Backend (Spring Boot API) <--> Database (H2)
 
 ---
 
-## 🔮 Future Enhancements
+## Future Enhancements
 
 - 🛡 Add role-based security (e.g., admin)
 - 🧪 Unit + integration tests
 - 🗄 Switch to PostgreSQL or MySQL
 - 📱 Responsive UI with better UX
 - 📦 Docker containerization for full-stack deployment
-
----
-
-Let me know if you'd like me to save this to a file or tailor it for deployment scenarios like Docker or Vercel!
